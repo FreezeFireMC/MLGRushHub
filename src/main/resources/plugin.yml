@@ -1,0 +1,3 @@
+name: MLGRushHub
+version: '${project.version}'
+main: de.chaos.mc.server.mlgrushhub.MLGRushHub
