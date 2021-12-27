@@ -1,3 +1,11 @@
 name: MLGRushHub
 version: '${project.version}'
 main: de.chaos.mc.server.mlgrushhub.MLGRushHub
+
+depend:
+  - ServerAPI
+commands:
+  accept:
+    description: Accept an Request
+  setSpawn:
+    description: Set the Spawn

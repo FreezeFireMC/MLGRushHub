@@ -26,4 +26,18 @@ public class MLGRushPlayerLanguage {
     public String kills;
     public String deaths;
     public String brokenBeds;
+
+    // InventoryUpdating
+    public String STICK;
+    public String PICKAXT;
+    public String BLOCKS;
+    public String INVNAME;
+    public String INVENTORYUPDATED;
+
+    //Items
+    public String SWORDNAME;
+
+    //Challenge
+    public String pressHereToAccept;
+    public String accept;
 }

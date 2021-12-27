@@ -10,10 +10,17 @@ public class FrenchMLGRushHubTranslation {
     public static String youChallengedPlayer(Player player) {
         return AbstractMessages.normalMessage("You challenged " + player.getName() + " to a fight");
     }
+    public static String playAcceptedChallenge(Player player) {
+        return AbstractMessages.normalMessage(player.getName() + " has accepted you fight request");
+    }
     public static String playerWasAlradyChallenged = AbstractMessages.normalMessage("You already Challenged this player");
 
     public static String Stats = "§6Stats: ";
     public static String kills = "§6Kills: ";
     public static String deaths = "§6Tode";
     public static String brokenBeds = "§6Broken beds";
+
+    public static String swordname = "§6Challenge Player";
+    public static String pressHereToAccept = "§6Press here to accept";
+    public static String accept = "§aAccept";
 }

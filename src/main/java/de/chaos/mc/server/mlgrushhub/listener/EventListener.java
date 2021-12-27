@@ -39,5 +39,4 @@ public class EventListener implements Listener {
     public void onplayerEntityInteractEvent(PlayerInteractAtEntityEvent event) {
         event.setCancelled(true);
     }
-
 }

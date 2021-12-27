@@ -1,15 +1,25 @@
 package de.chaos.mc.server.mlgrushhub;
 
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import de.chaos.mc.server.mlgrushhub.commands.AcceptCommand;
+import de.chaos.mc.server.mlgrushhub.commands.SetSpawnCommand;
+import de.chaos.mc.server.mlgrushhub.listener.ClickListener;
 import de.chaos.mc.server.mlgrushhub.listener.ConnectionListener;
+import de.chaos.mc.server.mlgrushhub.listener.EventListener;
+import de.chaos.mc.server.mlgrushhub.listener.PlayerInteractListener;
+import de.chaos.mc.server.mlgrushhub.utils.AcceptInput;
+import de.chaos.mc.server.mlgrushhub.utils.ChallengeRequest;
 import de.chaos.mc.server.mlgrushhub.utils.MLGRushPlayerLanguage;
 import de.chaos.mc.server.mlgrushhub.utils.languagelibary.LanguageLoader;
+import de.chaos.mc.server.mlgrushhub.utils.locationlibary.LocationInterface;
+import de.chaos.mc.server.mlgrushhub.utils.locationlibary.LocationRepository;
 import de.chaos.mc.server.mlgrushhub.utils.megaUtils.menu.MenuFactory;
 import de.chaos.mc.server.mlgrushhub.utils.mlgrushinventorylibary.InventoryClickListener;
 import de.chaos.mc.server.mlgrushhub.utils.mlgrushinventorylibary.InventoryCloseListener;
 import de.chaos.mc.server.mlgrushhub.utils.mlgrushinventorylibary.MLGRushProfileInv;
 import de.chaos.mc.server.mlgrushhub.utils.mlgrushinventorylibary.ormlite.UpdateMLGRushInvSortingRepository;
 import de.chaos.mc.server.mlgrushhub.utils.mlgrushinventorylibary.ormlite.UpdateMLGRushInventorySortingInterface;
+import de.chaos.mc.server.mlgrushhub.utils.scorebaord.ScoreboardManager;
 import de.chaos.mc.server.mlgrushhub.utils.statsLibary.StatsInterface;
 import de.chaos.mc.server.mlgrushhub.utils.statsLibary.StatsRepository;
 import de.chaos.mc.serverapi.api.ServerAPI;
@@ -34,6 +44,10 @@ public final class MLGRushHub extends JavaPlugin {
     private StatsInterface statsInterface;
     private LanguageLoader languageLoader;
     @Getter private static HashMap<UUID, MLGRushPlayerLanguage> onlinePlayers;
+    @Getter private static HashMap<UUID, ChallengeRequest> challengeRequests;
+    @Getter private AcceptInput acceptInput;
+    @Getter private static LocationInterface locationInterface;
+    @Getter private static ScoreboardManager scoreboardManager;
 
     @Override
     public void onEnable() {
@@ -46,11 +60,22 @@ public final class MLGRushHub extends JavaPlugin {
         mlgRushProfileInv = new MLGRushProfileInv(updateInventorySortingInterface, menuFactory, languageInterface);
         statsInterface = new StatsRepository(connectionSource);
         onlinePlayers = new HashMap<>();
+        challengeRequests = new HashMap<>();
         languageLoader = new LanguageLoader(languageInterface);
+        acceptInput = new AcceptInput();
 
+        scoreboardManager = new ScoreboardManager(this, languageInterface, statsInterface);
+
+        registerEvent(new ClickListener(mlgRushProfileInv));
         registerEvent(new ConnectionListener(updateInventorySortingInterface, statsInterface, languageLoader));
-        registerEvent(new InventoryClickListener(updateInventorySortingInterface));
+        registerEvent(new InventoryClickListener());
         registerEvent(new InventoryCloseListener(updateInventorySortingInterface, languageInterface));
+        registerEvent(new PlayerInteractListener());
+        registerEvent(new EventListener());
+        locationInterface = new LocationRepository();
+
+        getCommand("accept").setExecutor(new AcceptCommand());
+        getCommand("setSpawn").setExecutor(new SetSpawnCommand());
     }
 
     public void registerEvent(Listener listener) {

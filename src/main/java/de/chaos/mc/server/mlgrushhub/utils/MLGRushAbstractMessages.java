@@ -46,4 +46,21 @@ public class MLGRushAbstractMessages {
         }
         return string;
     }
+    public static String playerAcceptedChallenge(UUID uuid, Player player) {
+        String string = null;
+        switch(languageInterface.getLanguageType(player.getUniqueId())) {
+            case EG:
+                string = EnglishMLGRushHubTranslation.playAcceptedChallenge(player);
+                break;
+            case DE:
+                string = GermanMLGRushHubTranslation.playAcceptedChallenge(player);
+                break;
+            case FR:
+                string = FrenchMLGRushHubTranslation.playAcceptedChallenge(player);
+                break;
+            case OTHER:
+                string = EnglishMLGRushHubTranslation.playAcceptedChallenge(player);
+        }
+        return string;
+    }
 }
