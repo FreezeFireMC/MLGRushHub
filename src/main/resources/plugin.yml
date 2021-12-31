@@ -9,3 +9,4 @@ commands:
     description: Accept an Request
   setSpawn:
     description: Set the Spawn
+  stats:

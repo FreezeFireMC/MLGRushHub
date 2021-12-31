@@ -3,6 +3,7 @@ package de.chaos.mc.server.mlgrushhub;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import de.chaos.mc.server.mlgrushhub.commands.AcceptCommand;
 import de.chaos.mc.server.mlgrushhub.commands.SetSpawnCommand;
+import de.chaos.mc.server.mlgrushhub.commands.StatsCommand;
 import de.chaos.mc.server.mlgrushhub.listener.ClickListener;
 import de.chaos.mc.server.mlgrushhub.listener.ConnectionListener;
 import de.chaos.mc.server.mlgrushhub.listener.EventListener;
@@ -76,6 +77,7 @@ public final class MLGRushHub extends JavaPlugin {
 
         getCommand("accept").setExecutor(new AcceptCommand());
         getCommand("setSpawn").setExecutor(new SetSpawnCommand());
+        getCommand("stats").setExecutor(new StatsCommand(statsInterface));
     }
 
     public void registerEvent(Listener listener) {

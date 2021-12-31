@@ -9,6 +9,7 @@ import de.chaos.mc.serverapi.utils.ItemBuilder;
 import de.chaos.mc.serverapi.utils.stringLibary.AbstractMessages;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.WeatherType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,6 +38,7 @@ public class ConnectionListener implements Listener {
         player.getInventory().setItem(1, new ItemBuilder(Material.DIAMOND_AXE).name(playerLanguage.getSWORDNAME()).itemStack());
         player.getInventory().setItem(7, new ItemBuilder(Material.CHEST).name(playerLanguage.getINVNAME()).itemStack());
         player.teleport(MLGRushHub.getLocationInterface().getLocation("spawn"));
+        player.setPlayerWeather(WeatherType.CLEAR);
         MLGRushHub.getScoreboardManager().getScorebaord(player);
     }
     @EventHandler
